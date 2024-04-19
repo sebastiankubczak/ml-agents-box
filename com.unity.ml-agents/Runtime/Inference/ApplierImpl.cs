@@ -171,6 +171,11 @@ namespace Unity.MLAgents.Inference
             // Find the class maximum
             var maxProb = float.NegativeInfinity;
 
+            if (logProbs.data.backendType != BackendType.CPU)
+            {
+                logProbs.data.CompleteOperationsAndDownload();
+            }
+
             for (var cls = 0; cls < branchSize; ++cls)
             {
                 maxProb = Mathf.Max(((TensorFloat)logProbs.data)[batch, cls + channelOffset], maxProb);
