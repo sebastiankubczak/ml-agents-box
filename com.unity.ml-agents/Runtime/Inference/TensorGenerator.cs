@@ -58,7 +58,7 @@ namespace Unity.MLAgents.Inference
                 return;
             }
             var model = (Model)sentisModel;
-            var modelInfo = new SentisModelInfo(model, deterministicInference);
+            using var modelInfo = new SentisModelInfo(model, deterministicInference);
 
             m_ApiVersion = modelInfo.Version;
 
@@ -89,7 +89,6 @@ namespace Unity.MLAgents.Inference
             }
             m_Dict[TensorNames.RecurrentOutput] = new BiDimensionalOutputGenerator();
             m_Dict[TensorNames.ValueEstimateOutput] = new BiDimensionalOutputGenerator();
-            modelInfo?.Dispose();
         }
 
         public void InitializeObservations(List<ISensor> sensors)

@@ -60,7 +60,7 @@ namespace Unity.MLAgents.Inference
             }
 
             var model = (Model)sentisModel;
-            var modelInfo = new SentisModelInfo(model, deterministicInference);
+            using var modelInfo = new SentisModelInfo(model, deterministicInference);
             if (!modelInfo.SupportsContinuousAndDiscrete)
             {
                 actionSpec.CheckAllContinuousOrDiscrete();
@@ -84,7 +84,6 @@ namespace Unity.MLAgents.Inference
                 }
             }
             m_Dict[TensorNames.RecurrentOutput] = new MemoryOutputApplier(memories);
-            modelInfo?.Dispose();
         }
 
         /// <summary>

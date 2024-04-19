@@ -148,7 +148,7 @@ namespace Unity.MLAgents.Inference
                 failedModelChecks.Add(FailedCheck.Info(errorMsg));
                 return failedModelChecks;
             }
-            var modelInfo = new SentisModelInfo(model, deterministicInference);
+            using var modelInfo = new SentisModelInfo(model, deterministicInference);
             var hasExpectedTensors = modelInfo.CheckExpectedTensors(failedModelChecks);
             if (!hasExpectedTensors)
             {
@@ -197,7 +197,6 @@ namespace Unity.MLAgents.Inference
             failedModelChecks.AddRange(
                 CheckOutputTensorPresence(model, memorySize, deterministicInference)
             );
-            modelInfo?.Dispose();
             return failedModelChecks;
         }
 
@@ -225,7 +224,7 @@ namespace Unity.MLAgents.Inference
             ISensor[] sensors
         )
         {
-            var modelInfo = new SentisModelInfo(model);
+            using var modelInfo = new SentisModelInfo(model);
             var failedModelChecks = new List<FailedCheck>();
             var tensorsNames = modelInfo.InputNames;
 
@@ -302,7 +301,6 @@ namespace Unity.MLAgents.Inference
                     );
                 }
             }
-            modelInfo?.Dispose();
             return failedModelChecks;
         }
 
@@ -333,7 +331,7 @@ namespace Unity.MLAgents.Inference
             bool deterministicInference = false
         )
         {
-            var modelInfo = new SentisModelInfo(model);
+            using var modelInfo = new SentisModelInfo(model);
             var failedModelChecks = new List<FailedCheck>();
             var tensorsNames = modelInfo.InputNames;
             for (var sensorIndex = 0; sensorIndex < sensors.Length; sensorIndex++)
@@ -371,7 +369,6 @@ namespace Unity.MLAgents.Inference
                     );
                 }
             }
-            modelInfo?.Dispose();
             return failedModelChecks;
         }
 
@@ -390,7 +387,7 @@ namespace Unity.MLAgents.Inference
         /// </returns>
         static IEnumerable<FailedCheck> CheckOutputTensorPresence(Model model, int memory, bool deterministicInference = false)
         {
-            var modelInfo = new SentisModelInfo(model, deterministicInference);
+            using var modelInfo = new SentisModelInfo(model, deterministicInference);
             var failedModelChecks = new List<FailedCheck>();
 
             // If there is no Recurrent Output but the model is Recurrent.
@@ -404,7 +401,6 @@ namespace Unity.MLAgents.Inference
                     );
                 }
             }
-            modelInfo?.Dispose();
             return failedModelChecks;
         }
 
@@ -523,7 +519,7 @@ namespace Unity.MLAgents.Inference
             Model model, BrainParameters brainParameters, ISensor[] sensors,
             int observableAttributeTotalSize)
         {
-            var modelInfo = new SentisModelInfo(model);
+            using var modelInfo = new SentisModelInfo(model);
             var failedModelChecks = new List<FailedCheck>();
             var tensorTester =
                 new Dictionary<string, Func<BrainParameters, TensorProxy, ISensor[], int, FailedCheck>>()
@@ -580,7 +576,6 @@ namespace Unity.MLAgents.Inference
                     }
                 }
             }
-            modelInfo?.Dispose();
             return failedModelChecks;
         }
 
@@ -663,7 +658,7 @@ namespace Unity.MLAgents.Inference
             Model model, BrainParameters brainParameters, ISensor[] sensors,
             int observableAttributeTotalSize)
         {
-            var modelInfo = new SentisModelInfo(model);
+            using var modelInfo = new SentisModelInfo(model);
             var failedModelChecks = new List<FailedCheck>();
             var tensorTester =
                 new Dictionary<string, Func<BrainParameters, TensorProxy, ISensor[], int, FailedCheck>>()
@@ -718,7 +713,6 @@ namespace Unity.MLAgents.Inference
                     }
                 }
             }
-            modelInfo?.Dispose();
             return failedModelChecks;
         }
 
@@ -769,7 +763,7 @@ namespace Unity.MLAgents.Inference
             BrainParameters brainParameters,
             ActuatorComponent[] actuatorComponents)
         {
-            var modelInfo = new SentisModelInfo(model);
+            using var modelInfo = new SentisModelInfo(model);
             var failedModelChecks = new List<FailedCheck>();
 
             // If the model expects an output but it is not in this list
@@ -797,7 +791,6 @@ namespace Unity.MLAgents.Inference
                 failedModelChecks.Add(discreteError);
             }
 
-            modelInfo?.Dispose();
             return failedModelChecks;
         }
 

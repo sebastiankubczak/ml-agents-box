@@ -153,7 +153,7 @@ namespace Unity.MLAgents.Analytics
         )
         {
             var sentisModel = ModelLoader.Load(nnModel);
-            var sentisModelInfo = new SentisModelInfo(sentisModel);
+            using var sentisModelInfo = new SentisModelInfo(sentisModel);
             var inferenceEvent = new InferenceEvent();
 
             // Hash the behavior name so that there's no concern about PII or "secret" data being leaked.
@@ -194,7 +194,6 @@ namespace Unity.MLAgents.Analytics
 
             inferenceEvent.TotalWeightSizeBytes = GetModelWeightSize(sentisModel);
             inferenceEvent.ModelHash = GetModelHash(sentisModel);
-            sentisModelInfo.Dispose();
             return inferenceEvent;
         }
 
