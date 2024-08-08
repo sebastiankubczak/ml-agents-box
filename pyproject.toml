@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "ml-agents-box"
+version = "0.1.0"
+
+description = ""
+authors = ["Sebastian Kubczak <sebastian.kubczak@icloud.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.10.12"
+mlagents = {path = "./ml-agents"}
+mlagents-envs = {path = "./ml-agents-envs"}
+torch = "^2.2.0"
+jupyterlab = "^4.0.12"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -35,6 +35,15 @@ public class PushBlockEnvController : MonoBehaviour
     /// <returns></returns>
     [Header("Max Environment Steps")] public int MaxEnvironmentSteps = 25000;
 
+    // <summary>
+    /// Points given for being in the goal.
+    /// </summary>
+    /// <returns></returns>
+    [Header("Goal Scores")] 
+    public float GoalScoreYellow = 0.0f;
+    public float GoalScoreBlue = 0.0f;
+
+
     /// <summary>
     /// The area bounds.
     /// </summary>
@@ -180,6 +189,17 @@ public class PushBlockEnvController : MonoBehaviour
         //Give Agent Rewards
         m_AgentGroup.AddGroupReward(score);
 
+        //Add points for being in the goal
+        if (score > 0.0f)
+        {
+            GoalScoreYellow += score;
+        }
+        else if (score < 0.0f)
+        {
+            //Add points for being in the goal
+            GoalScoreBlue += score;
+        }
+
         // Swap ground material for a bit to indicate we scored.
         StartCoroutine(GoalScoredSwapGroundMaterial(m_PushBlockSettings.goalScoredMaterial, 0.5f));
 
@@ -230,5 +250,9 @@ public class PushBlockEnvController : MonoBehaviour
 
         //Reset counter
         m_NumberOfRemainingBlocks = BlocksList.Count;
+
+        //Reset Goal Score
+        GoalScoreYellow = 0.0f;
+        GoalScoreBlue = 0.0f;
     }
 }
