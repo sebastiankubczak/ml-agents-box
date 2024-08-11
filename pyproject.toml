@@ -8,8 +8,8 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "3.10.12"
-mlagents = {path = "./ml-agents"}
-mlagents-envs = {path = "./ml-agents-envs"}
+mlagents = {path = "ml-agents"}
+mlagents-envs = {path = "ml-agents-envs"}
 torch = "^2.2.0"
 jupyterlab = "^4.0.12"
 
